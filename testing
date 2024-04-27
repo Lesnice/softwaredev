@@ -1,0 +1,50 @@
+# phrase1 = 'Clean Couch'
+# phrase2 = 'Giant Table'
+# firstLetter = phrase2.split()[0][0]
+# firstletterword = phrase2.split()[1][0]
+# if firstLetter == firstletterword:
+#     print("The two words start with the same letter.")
+# else:
+#     print("The two words do not start with the same letter.")
+    
+    
+# def is_safe_flight(altitude, airspeed):
+#   """
+#   Checks if a flight is safe based on altitude and airspeed.
+
+#   Args:
+#       altitude: The altitude of the flight in feet (ft).
+#       airspeed: The airspeed of the flight in knots (knots).
+
+#   Returns:
+#       True if the flight is safe, False otherwise.
+#   """
+
+#   # Check if altitude or airspeed is outside safe ranges
+#   is_unsafe_altitude = altitude < 100 or altitude > 50000
+#   is_unsafe_airspeed = airspeed < 60 or airspeed > 500
+
+#   # Return True if both altitude and airspeed are safe
+#   return not (is_unsafe_altitude or is_unsafe_airspeed)
+
+# def main():
+#   """Prompts the user for altitude and airspeed, then prints the safety status."""
+#   altitude = int(input("Enter altitude (ft): "))
+#   airspeed = int(input("Enter airspeed (knots): "))
+
+#   if is_safe_flight(altitude, airspeed):
+#     print("Safe flying conditions.")
+#   else:
+#     print("Unsafe flying conditions detected!")
+
+# if __name__ == "__main__":
+#   main()
+
+total=0
+for i in range(2, 101, 2):#even numbers
+        total +=i
+print(f"The sum of all even numbers between 1 and 100 is: {total}")
+
+for i in range(1, 100, 2): #for odd numbers
+    total += i
+print(f"The sum of all even numbers between 1 and 100 is: {total}")    
