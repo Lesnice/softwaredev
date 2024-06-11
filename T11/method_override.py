@@ -7,17 +7,17 @@ class Adult():
         self.eye_colour = eye_colour
         self.hair_colour = hair_colour
         
-    def can_drive(self, name, age):
+    def can_drive(self):
         print(f"{self.name}  are old enough to drive")
               
 class Child(Adult):
-    def can_drive(self, name, age):
+    def can_drive(self):
         print("You are too young to drive")
         
 def main():
     #take user inputs name, age, haircolour and eyecolour
     name = input("what is your name? ")
-    age = input("How old are you?")
+    age = int(input("How old are you?"))
     eye_colour = input("What is your eye colour? ")
     hair_colour = input("What is your hair colour?")
 

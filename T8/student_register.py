@@ -2,7 +2,7 @@ def register(num_students):
     try:
         
     #ask the user how many students are registering
-        num_students = int(input("How many students are registering?:"))
+        
     #open in write mode
         with open("reg_form.txt", "w") as file:
             
@@ -11,7 +11,7 @@ def register(num_students):
                 student_id = input(f"Enter student ID {i}:  ")
            
            #write Id followed by dotted lines
-                file.write(f"{student_id}\n{'-'*25|n}")
+                file.write(f"{student_id}\n{'-'*25}\n")
            
         print("Registration completed, confirm with the form reg_form.txt")
     
@@ -19,7 +19,7 @@ def register(num_students):
         print("please enter max number of students.")
     
     
-    
-if __name__ == "__register__":
-    register()
+num_students = int(input("How many students are registering?:"))    
+if __name__ == "__main__":
+    register(num_students)
         

@@ -6,7 +6,7 @@ class Email():
         self.email_address = email_address
         self.subject_line = subject_line
         self.email_content = email_content
-        has_been_read = False
+        self.has_been_read = False
 #method to mark as read
     def mark_as_read(self):
         #marks the email as read
@@ -16,18 +16,23 @@ class Email():
         
 #initialise empty variable called inbox
 inbox = []
-def populate_inbox(email):
+def populate_inbox(email_obj):
     #populates inbox with email
-    inbox.append(email)
+    if isinstance (email_obj, Email):
+      inbox.append(email_obj)
+      print(f"Email from {email_obj.email_address} added to inbox.")
+    else:
+      print("Invalid email object. Please provide a valid Email instance.")
     
 #list of all emails in the inbox with corresponding numbers
-if not inbox:
+def list_emails():
+  if not inbox:
     print("\nYour inbox is empty.")
- 
-print("\nInbox: ")
-for index, email in enumerate(inbox):
-    read_status = " (Read)" if email.has_been_read else ""
-    print(f"{index}. {email.subject_line}{read_status}")
+  else:
+    print("\nInbox: ")
+    for index, email in enumerate(inbox):
+      read_status = " (Read)" if email.has_been_read else ""
+      print(f"{index}. {email.subject_line}{read_status}")
 
 
 def read_email():
@@ -54,8 +59,8 @@ def read_email():
 
 
 def main():
+  
   """Simulates an email application."""
-  populate_inbox(email)
 
   while True:
     print("\nEmail App")

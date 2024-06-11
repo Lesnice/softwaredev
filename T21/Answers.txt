@@ -1,0 +1,23 @@
+What is Normalisation?
+It is the process employed to organise data within a data base in order to reducing data redundancy and improve data integrity.
+This is orchestrated by removing duplicates, ensuring dependencies are logical and making databases more efficient to manage.
+
+Normalisation follows a series of steps known as normal forms each with particular rules and objectives.
+
+First Normal Form(1NF)
+Each table must contain atomic values and columns must be of the same data type.
+objective is to remove duplicate columns from same table and create separate tables for related data
+
+Second Normal Form(2NF)
+Table must have passed the 1NF and all non-key columns dependent on primary key in a non-transitive manner
+The objective is to remove partial dependencies that is, no non-key dependency should depend on a part of a composite key
+
+Third Normal Form(3NF)
+
+Table must be in 2NF, with all non-key coloumns non-transitively dependent on the primary key
+The objective is to remove transitive dependencies that is non-key dependencies depending on other non-key dependncies.
+
+Foreign Key?
+
+A foreign key is a field (or collection of fields) in one table that uniquely identifies a row of another table. The purpose of a foreign key is to ensure referential integrity between the two tables. In other words, it establishes a link between the data in the two tables, 
+ensuring that the data in the foreign key column matches data in the referenced table's primary key or unique key column.

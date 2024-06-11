@@ -1,4 +1,9 @@
-def process_text(file_path):
+import os
+def process_text(file_name):
+    
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    file_path = os.path.join(current_dir, file_name)
     # Open the file for reading
     with open(file_path, 'r') as file:
         # Read each line from the file
@@ -23,7 +28,7 @@ def process_text(file_path):
             print(words[-3], words[-2], words[-1])
 
 # File path of the text file
-file_path = "T8\DOB.txt"
+file_name = "DOB.txt"
 
 # Call the process_text function with the file path
-process_text(file_path)
+process_text(file_name)
