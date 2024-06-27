@@ -1,0 +1,4 @@
+[flake8]
+exclude = .git, __pycache__, stickynotes
+extend-ignore = E203, E501, w292, E303
+max-line-length =100
