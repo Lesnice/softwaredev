@@ -1,0 +1,231 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lab Booking System</title>
+    <link rel="stylesheet" href="{% static 'labbooking/styles.css' %}">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            padding: 1rem;
+            margin: 2rem 0 0 0; /* Top margin to separate from the content */
+        }
+        .container {
+            width: 80%;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .index-page, .login-page, .logout-page, .protected-page, .register-page {
+            margin-bottom: 2rem;
+            color: #333;
+            text-align: left;
+        }
+        .menu-button, .default-button {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .default-button {
+            background-color: #6c757d;
+        }
+        form label {
+            display: block;
+            margin-top: 1rem;
+        }
+        form input, form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding in the total width/height */
+        }
+        form button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .notes-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* Justify the notes */
+            gap: 1rem; /* Gap between notes */
+        }
+          
+        .note-box {
+            background-color: #e0f7fa; /* Light blue background */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 1rem;
+            width: calc(33.333% - 1rem); /* 3 columns with a gap */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+          
+        .note-box h3 {
+            margin-top: 0;
+            text-align: center; /* Center align the note titles */
+        }
+          
+        .note-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+          
+        .note-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+          
+        .note-button:hover {
+            background-color: #0056b3;
+        }
+          
+    </style>
+</head>
+<body>
+    {% include "partials/header.html" %}
+    
+    <div class="main-content">
+        <!-- Molarity Calculator -->
+        <div class="molarity-calculator">
+            <h3>Molarity Calculator</h3>
+            <form id="molarityForm" onsubmit="calculateMolarity(event)">
+                <label for="moles">Moles of Solute (mol):</label>
+                <input type="number" id="moles" step="any" required>
+
+                <label for="volume">Volume of Solution (L):</label>
+                <input type="number" id="volume" step="any" required>
+
+                <button type="submit">Calculate Molarity</button>
+            </form>
+            <p id="molarityResult"></p>
+        </div>
+
+        <!-- Table for Booked Equipment -->
+        <div class="equipment-bookings">
+            <h3>Today's Booked Equipment</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Equipment Name</th>
+                        <th>Booked By</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.equipment.name }}</td>
+                        <td>{{ booking.user.username }}</td>
+                        <td>{{ booking.start_time }}</td>
+                        <td>{{ booking.end_time }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No equipment booked for today.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="container">
+            <!-- Side Menu -->
+            <div class="side-menu">
+                <!-- Your side menu buttons here -->
+            </div>
+    
+            <!-- Main Content -->
+                     
+                <!-- Dilution Calculator Section -->
+                <div class="dilution-calculator">
+                    <h2>Dilution Calculator</h2>
+                    <form id="dilutionForm">
+                        <label for="initialConcentration">Initial Concentration (C₁):</label>
+                        <input type="number" id="initialConcentration" placeholder="Initial concentration" required>
+                        
+                        <label for="finalConcentration">Final Concentration (C₂):</label>
+                        <input type="number" id="finalConcentration" placeholder="Final concentration" required>
+                        
+                        <label for="finalVolume">Final Volume (V₂):</label>
+                        <input type="number" id="finalVolume" placeholder="Final volume" required>
+                        
+                        <button type="button" onclick="calculateDilution()">Calculate</button>
+                    </form>
+    
+                    <p id="result" style="margin-top: 20px;"></p>
+                </div>
+            
+        <script>
+            function calculateDilution() {
+                var C1 = document.getElementById("initialConcentration").value;
+                var C2 = document.getElementById("finalConcentration").value;
+                var V2 = document.getElementById("finalVolume").value;
+    
+                if (C1 && C2 && V2) {
+                    var V1 = (C2 * V2) / C1;  // Simple dilution formula: C₁V₁ = C₂V₂
+                    document.getElementById("result").innerHTML = "You need to take " + V1.toFixed(2) + " units of the initial solution.";
+                } else {
+                    document.getElementById("result").innerHTML = "Please fill in all fields.";
+                }
+            }
+        </script>
+
+        <script>
+            function calculateMolarity(event) {
+                event.preventDefault();
+                const moles = parseFloat(document.getElementById('moles').value);
+                const volume = parseFloat(document.getElementById('volume').value);
+                if (moles > 0 && volume > 0) {
+                    const molarity = moles / volume;
+                    document.getElementById('molarityResult').textContent = `Molarity: ${molarity.toFixed(2)} M`;
+                } else {
+                    document.getElementById('molarityResult').textContent = 'Please enter valid numbers for moles and volume.';
+                }
+            }
+        </script>
+    <main>
+        {% block content %}
+        <!-- Content from other templates will be injected here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Lab Booking System. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

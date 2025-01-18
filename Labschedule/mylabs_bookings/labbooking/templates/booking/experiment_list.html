@@ -1,0 +1,35 @@
+{% extends 'booking/base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'labbooking/styles.css' %}">
+{% block title %}Experiment List{% endblock %}
+
+{% block content %}
+    <h1>Experiments</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Experiment Name</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for experiment in experiments %}
+            <tr>
+                <td>{{ experiment.id }}</td>
+                <td>{{ experiment.name }}</td>
+                <td>{{ experiment.date }}</td>
+                <td>
+                    <a href="{% url 'edit_experiment' experiment.id %}">Edit</a>
+                    <a href="{% url 'delete_experiment' experiment.id %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No experiments found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

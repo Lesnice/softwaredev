@@ -1,0 +1,28 @@
+{% extends 'booking/base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'labbooking/styles.css' %}">
+{% block title %}Chemical List{% endblock %}
+
+{% block content %}
+    <h2>Chemical List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Formula</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chemical in chemicals %}
+                <tr>
+                    <td>{{ chemical.name }}</td>
+                    <td>{{ chemical.formula }}</td>
+                    <td>{{ chemical.quantity }}</td>
+                    <td>{{ chemical.unit }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

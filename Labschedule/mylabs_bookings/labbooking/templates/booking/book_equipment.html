@@ -1,0 +1,41 @@
+{% extends 'booking/base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'labbooking/styles.css' %}">
+{% block content %}
+<!-- FullCalendar CSS -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+
+<!-- FullCalendar JS -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+    <h1>Book Equipment: {{ equipment.name }}</h1>
+    <p>{{ equipment.description }}</p>
+    
+    <h3>Available Bookings</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Start Time</th>
+                <th>End Time</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.start_time }}</td>
+                <td>{{ booking.end_time }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="2">No bookings available.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <form method="post">
+        {% csrf_token %}
+        <!-- Add a form here to allow user to select times and book equipment -->
+        <button type="submit">Book Equipment</button>
+    </form>
+{% endblock %}
+

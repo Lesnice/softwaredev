@@ -1,0 +1,38 @@
+{% extends 'booking/base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'labbooking/styles.css' %}">
+{% block title %}Antibody List{% endblock %}
+
+{% block content %}
+    <h1>Antibodies</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Concentration</th>
+                <th>Applications</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for antibody in antibodies %}
+            <tr>
+                <td>{{ antibody.id }}</td>
+                <td>{{ antibody.name }}</td>
+                <td>{{ antibody.species }}</td>
+                <td>{{ antibody.concentration }}</td>
+                <td>
+                    <td>
+                        <a href="{% url 'edit_antibody' antibody.id %}">Edit</a>
+                        <a href="{% url 'delete_antibody' antibody.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No antibodies found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}

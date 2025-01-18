@@ -1,0 +1,19 @@
+{% extends 'booking/base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'labbooking/styles.css' %}">
+{% block content %}
+    <h1>Available Equipment</h1>
+    <ul>
+    {% for equipment in equipments %}
+        <li>
+            <a href="{% url 'book_equipment' equipment.id %}">{{ equipment.name }}</a> - 
+            {% if equipment.availability %}
+                Available
+            {% else %}
+                Not Available
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+

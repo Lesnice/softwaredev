@@ -1,0 +1,25 @@
+{% extends 'booking/base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'labbooking/styles.css' %}">
+{% block title %}Protocol List{% endblock %}
+
+{% block content %}
+    <h2>List of Protocols</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Protocol Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for protocol in protocols %}
+                <tr>
+                    <td>{{ protocol.name }}</td>
+                    <td>{{ protocol.description }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

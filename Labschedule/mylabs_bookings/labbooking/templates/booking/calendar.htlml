@@ -1,0 +1,56 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+    
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',  // Change to 'timeGridWeek' for detailed view
+            editable: true,
+            selectable: true,
+            selectHelper: true,
+            events: '/bookings/',  // This will load existing bookings from the server
+    
+            // When a user selects a time range to book
+            select: function(info) {
+                var title = prompt('Enter Booking Title:');
+                if (title) {
+                    // Send an AJAX request to save the booking
+                    fetch('/save-booking/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        },
+                        body: JSON.stringify({
+                            title: title,
+                            start: info.startStr,
+                            end: info.endStr
+                        })
+                    }).then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Add the new booking to the calendar
+                            calendar.addEvent({
+                                id: data.id,
+                                title: `${title} - {{ request.user.get_full_name }}`,  // Display user's name
+                                start: info.startStr,
+                                end: info.endStr
+                            });
+                            calendar.unselect();  // Clear selection
+                        } else {
+                            alert('Error saving booking');
+                        }
+                    });
+                }
+            },
+    
+            // Optional: Highlight existing bookings with a specific color
+            eventRender: function(info) {
+                // Change event background color, text color, etc.
+                info.el.style.backgroundColor = '#f39c12';  // Highlight the booking slot
+            }
+        });
+    
+        calendar.render();
+    });
+    </script>
+    

@@ -1,0 +1,31 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'labbooking/styles.css' %}">
+<div class="logo-container">
+    <img src="{% static 'images/logo.png' %}" alt="Lab Logo" class="lab-logo">
+    </div>
+    <h1>Lab Booking System</h1>
+<div class="header">
+    <nav>
+        <a class="menu-button" href="{% url 'equipment_list'  %}">Book Equipment</a>
+        <a class="menu-button" href="{% url 'experiment_list' %}"> New Experiment</a>
+        <a class="menu-button" href="{% url 'antibody_list' %}"> Antibodies</a>
+        <a class="menu-button" href="{% url 'chemical_list' %}"> View chemicals</a>
+        <a class="menu-button" href="{% url 'protocol_list' %}"> Create New Protocol</a>
+               
+    </nav>
+    <div class='container'>
+        <div class= 'side-menu'>
+            <ul>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'add_chemical' %}" class="menu-button">Add Chemical</a></li>
+                <li><a href="{% url 'add_protocol' %}" class="menu-button">Add Protocol</a></li>
+                <li><a href="{% url 'add_equipment' %}" class="menu-button">Add Equipment</a></li>
+                <li><a href="{% url 'add_antibody' %}" class="menu-button">Add Antibody</a></li>
+                <li><a href="{% url 'open_lab_book' %}" class="menu-button">Open Lab Book</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}"><button>Login</a> </button></li>
+                    <li><a href="{% url 'signup' %}"><button>Sign Up</a></button></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div class='main-content'>
